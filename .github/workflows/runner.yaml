@@ -74,9 +74,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # This step uses an action
 
       - name: Install dependencies
-        run: npm install
+        run: npm install  # This step runs a shell command
 
       - name: Run NPM script
+        run: npm run build  # This step runs a shell command
+        env:
+          NODE_ENV: ${{ matrix.environment }}
