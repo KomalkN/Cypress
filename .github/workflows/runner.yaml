@@ -1,0 +1,81 @@
+name: NPM Run Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Select the environment'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - qa
+          - uat
+          - e2e
+          - prod
+
+jobs:
+  npm-run:
+    name: NPM Run on ${{ inputs.environment }}
+    runs-on: ${{ matrix.runner }}
+
+    strategy:
+      matrix:
+        environment: [dev, qa, uat, e2e, prod]
+        include:
+          # Dev environment with multiple runners
+          - environment: dev
+            runner: self-hosted
+          - environment: dev
+            runner: cnative
+          - environment: dev
+            runner: dev-qa
+          - environment: dev
+            runner: common-runners
+
+          # QA environment with multiple runners
+          - environment: qa
+            runner: self-hosted
+          - environment: qa
+            runner: cnative
+          - environment: qa
+            runner: dev-qa
+          - environment: qa
+            runner: common-runners
+
+          # UAT environment
+          - environment: uat
+            runner: self-hosted
+          - environment: uat
+            runner: cnative
+          - environment: uat
+            runner: shared-runners
+
+          # E2E environment
+          - environment: e2e
+            runner: self-hosted
+          - environment: e2e
+            runner: cnative
+          - environment: e2e
+            runner: shared-runners
+
+          # Prod environment
+          - environment: prod
+            runner: self-hosted
+          - environment: prod
+            runner: cnative
+          - environment: prod
+            runner: shared-runners
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run NPM script
+        run: npm run build
+        env:
+          NODE_ENV: ${{ matrix.environment }}
