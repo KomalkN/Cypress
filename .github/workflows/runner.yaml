@@ -1,5 +1,9 @@
 name: NPM Run Workflow
 
+ push:
+    branches:
+      - feature/runner  # Trigger the workflow on push to this branch
+
 on:
   workflow_dispatch:
     inputs:
