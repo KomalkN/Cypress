@@ -1,10 +1,10 @@
 name: NPM Run Workflow
 
- push:
+on:
+  push:
     branches:
       - feature/runner  # Trigger the workflow on push to this branch
 
-on:
   workflow_dispatch:
     inputs:
       environment:
@@ -80,6 +80,3 @@ jobs:
         run: npm install
 
       - name: Run NPM script
-        run: npm run build
-        env:
-          NODE_ENV: ${{ matrix.environment }}
