@@ -1,12 +1,17 @@
 name: Reusable Runner Workflow
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       RUNNER:
-        description: 'The runner environment to use'
+        description: 'Select the runner'
         required: true
-        type: string
+        type: choice
+        options:
+          - dev-qa
+          - uat
+          - e2e
+          - prod
 
 jobs:
   dynamic-runner-job:
