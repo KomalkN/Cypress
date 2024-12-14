@@ -4,14 +4,9 @@ on:
   workflow_call:
     inputs:
       RUNNER:
-        description: 'Select the runner'
+        description: 'Select the runner (Allowed values: dev-qa, uat, e2e, prod)'
         required: true
-        type: choice
-        options:
-          - dev-qa
-          - uat
-          - e2e
-          - prod
+        type: string
 
 jobs:
   dynamic-runner-job:
