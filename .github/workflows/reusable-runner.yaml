@@ -10,7 +10,11 @@ on:
 
 jobs:
   dynamic-runner-job:
-    runs-on: [self-hosted, cnative, ${{ inputs.RUNNER }}, common-runners]
+    runs-on: 
+      - self-hosted
+      - cnative
+      - ${{ inputs.RUNNER }}
+      - common-runners
     steps:
       - name: Check out code
         uses: actions/checkout@v4

@@ -9,4 +9,4 @@ jobs:
   call-reusable-workflow:
     uses: ./.github/workflows/reusable-runner.yaml
     with:
-      RUNNER: dev-qa  # Hardcoded runner for demonstration. You can replace it dynamically if needed.
+      RUNNER: dev-qa  # Replace 'dev-qa' with your desired input value
