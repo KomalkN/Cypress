@@ -9,4 +9,4 @@ jobs:
   call-reusable-workflow:
     uses: ./.github/workflows/reusable-runner.yaml
     with:
-      RUNNER: ${{ github.event.inputs.RUNNER }}
+      RUNNER: dev-qa  # Hardcoded runner for demonstration. You can replace it dynamically if needed.
