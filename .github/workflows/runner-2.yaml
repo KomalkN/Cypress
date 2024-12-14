@@ -8,10 +8,13 @@ on:
         type: string
 
 jobs:
-  deploy-K8-dev-qa:
-    if: inputs.DEPLOY_ENVIRONMENT == 'dev' || inputs.DEPLOY_ENVIRONMENT == 'qa'
+  deploy-K8:
     name: "Deploy k8 ${{ inputs.DEPLOY_ENVIRONMENT }}"
-    runs-on: ["self-hosted", "cnative", "dev-qa", "common-runners"]
+    runs-on: >-
+      ${{ inputs.DEPLOY_ENVIRONMENT == 'dev' || inputs.DEPLOY_ENVIRONMENT == 'qa' && '["self-hosted", "cnative", "dev-qa", "common-runners"]'
+      || inputs.DEPLOY_ENVIRONMENT == 'uat' && '["self-hosted", "cnative", "uat", "shared-runners"]'
+      || inputs.DEPLOY_ENVIRONMENT == 'e2e' && '["self-hosted", "cnative", "e2e", "shared-runners"]'
+      || inputs.DEPLOY_ENVIRONMENT == 'prod' && '["self-hosted", "cnative", "prod", "shared-runners"]' }}
     environment: ${{ inputs.DEPLOY_ENVIRONMENT }}
     permissions:
       contents: 'read'
@@ -20,46 +23,4 @@ jobs:
       - name: Checkout Project
         uses: actions/checkout@v4
       # - name: Debug Environment
-      #   run: echo "Running on dev/qa environment: ${{ inputs.DEPLOY_ENVIRONMENT }}"
-
-  deploy-K8-uat:
-    if: inputs.DEPLOY_ENVIRONMENT == 'uat'
-    name: "Deploy k8 uat"
-    runs-on: ["self-hosted", "cnative", "uat", "shared-runners"]
-    environment: uat
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-    steps:
-      - name: Checkout Project
-        uses: actions/checkout@v4
-      - name: Debug Environment
-        run: echo "Running on uat environment"
-
-  deploy-K8-e2e:
-    if: inputs.DEPLOY_ENVIRONMENT == 'e2e'
-    name: "Deploy k8 e2e"
-    runs-on: ["self-hosted", "cnative", "e2e", "shared-runners"]
-    environment: e2e
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-    steps:
-      - name: Checkout Project
-        uses: actions/checkout@v4
-      - name: Debug Environment
-        run: echo "Running on e2e environment"
-
-  deploy-K8-prod:
-    if: inputs.DEPLOY_ENVIRONMENT == 'prod'
-    name: "Deploy k8 prod"
-    runs-on: ["self-hosted", "cnative", "prod", "shared-runners"]
-    environment: prod
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-    steps:
-      - name: Checkout Project
-        uses: actions/checkout@v4
-      - name: Debug Environment
-        run: echo "Running on prod environment"
+      #   run: echo "Running on environment: ${{ inputs.DEPLOY_ENVIRONMENT }}"
