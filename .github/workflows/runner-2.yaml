@@ -1,0 +1,51 @@
+name: K8 Deploy
+
+on:
+  push:
+    branches:
+      - feature/runner-2
+
+workflow_call:
+  inputs:
+    DEPLOY_ENVIRONMENT:
+      required: true
+      type: string   
+
+
+jobs:
+  deploy-K8:
+    name: "Deploy k8 ${{ inputs.DEPLOY_ENVIRONMENT }}"
+    runs-on: ${{ steps.set-runner.outputs.runners }}
+    environment: ${{ inputs.DEPLOY_ENVIRONMENT }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Set Dynamic Runner Label
+        id: set-runner
+        run: |
+          case "${{ inputs.DEPLOY_ENVIRONMENT }}" in
+            dev|qa)
+              echo "::set-output name=third-runner::dev-qa"
+              ;;
+            uat)
+              echo "::set-output name=third-runner::uat"
+              ;;
+            e2e)
+              echo "::set-output name=third-runner::e2e"
+              ;;
+            prod)
+              echo "::set-output name=third-runner::prod"
+              ;;
+            *)
+              echo "Invalid DEPLOY_ENVIRONMENT: ${{ inputs.DEPLOY_ENVIRONMENT }}"
+              exit 1
+              ;;
+          esac
+          echo "::set-output name=runners::['self-hosted','cnative','${{ steps.set-runner.outputs.third-runner }}','common-runners']"
+
+      # - name: Debug Runners
+      #   run: echo "Selected runners: ${{ steps.set-runner.outputs.runners }}"
+
+      - name: Checkout Project
+        uses: actions/checkout@v4
