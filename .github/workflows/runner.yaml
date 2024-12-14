@@ -25,20 +25,20 @@ jobs:
     # runs-on: ${{ matrix.runner }}
     runs-on: self-hosted
 
-    strategy:
-      matrix:
-        environment: [dev, qa, uat, e2e, prod]
-        include:
-          - environment: dev
-            runner: self-hosted
-          - environment: qa
-            runner: self-hosted
-          - environment: uat
-            runner: self-hosted
-          - environment: e2e
-            runner: self-hosted
-          - environment: prod
-            runner: self-hosted
+    # strategy:
+    #   matrix:
+    #     environment: [dev, qa, uat, e2e, prod]
+    #     include:
+    #       - environment: dev
+    #         runner: self-hosted
+    #       - environment: qa
+    #         runner: self-hosted
+    #       - environment: uat
+    #         runner: self-hosted
+    #       - environment: e2e
+    #         runner: self-hosted
+    #       - environment: prod
+    #         runner: self-hosted
 
     steps:
       - name: Checkout code
