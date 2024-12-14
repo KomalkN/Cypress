@@ -1,0 +1,16 @@
+name: Reusable Runner Workflow
+
+on:
+  workflow_call:
+    inputs:
+      RUNNER:
+        description: 'The runner environment to use'
+        required: true
+        type: string
+
+jobs:
+  dynamic-runner-job:
+    runs-on: ${{ join(' ', 'self-hosted', 'cnative' inputs.RUNNER, 'common-runners') }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2

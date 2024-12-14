@@ -1,0 +1,20 @@
+name: Dynamic Runner Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      RUNNER:
+        description: 'Select the runner'
+        required: true
+        type: choice
+        options:
+          - dev-qa
+          - uat
+          - e2e
+          - prod
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/reusable-runner.yaml
+    with:
+      RUNNER: ${{ github.event.inputs.RUNNER }}
