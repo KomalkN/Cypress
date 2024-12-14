@@ -18,7 +18,7 @@ jobs:
     environment: ${{ inputs.DEPLOY_ENVIRONMENT }}
     permissions:
       contents: 'read'
-      id-token: 'write'
+      # id-token: 'write'
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
