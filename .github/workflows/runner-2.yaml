@@ -1,10 +1,11 @@
 name: K8 Deploy
 
-workflow_call:
-  inputs:
-    DEPLOY_ENVIRONMENT:
-      required: true
-      type: string   
+on:
+ workflow_call:
+   inputs:
+     DEPLOY_ENVIRONMENT:
+       required: true
+       type: string   
 
 
 jobs:
