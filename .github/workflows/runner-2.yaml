@@ -19,8 +19,8 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
-      - name: Debug Environment
-        run: echo "Running on dev/qa environment: ${{ inputs.DEPLOY_ENVIRONMENT }}"
+      # - name: Debug Environment
+      #   run: echo "Running on dev/qa environment: ${{ inputs.DEPLOY_ENVIRONMENT }}"
 
   deploy-K8-uat:
     if: inputs.DEPLOY_ENVIRONMENT == 'uat'
