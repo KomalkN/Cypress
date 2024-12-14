@@ -1,0 +1,14 @@
+# .github/workflows/caller-workflow.yaml
+name: Call K8 Deploy Workflow
+
+on:
+  push:
+    branches:
+      - feature/runner-2
+
+jobs:
+  call-k8-deploy:
+    uses: ./.github/workflows/runner-2.yaml.yaml
+    with:
+      DEPLOY_ENVIRONMENT: "dev"
+

@@ -1,10 +1,5 @@
 name: K8 Deploy
 
-on:
-  push:
-    branches:
-      - feature/runner-2
-
 workflow_call:
   inputs:
     DEPLOY_ENVIRONMENT:
