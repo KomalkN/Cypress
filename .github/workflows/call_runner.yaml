@@ -8,7 +8,7 @@ on:
 
 jobs:
   call-k8-deploy:
-    uses: ./.github/workflows/runner-2.yaml.yaml
+    uses: ./.github/workflows/runner-2.yaml.
     with:
       DEPLOY_ENVIRONMENT: "dev"
 
