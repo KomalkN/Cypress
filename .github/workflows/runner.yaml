@@ -22,15 +22,15 @@ on:
 jobs:
   npm-run:
     name: NPM Run on ${{ inputs.environment }}
-    runs-on: ${{ matrix.runner }}
-    # runs-on: self-hosted
+    # runs-on: ${{ matrix.runner }}
+    runs-on: self-hosted
 
-    strategy:
-      matrix:
-        environment: [dev, qa, uat, e2e, prod]
-        include:
-          - environment: dev
-            runner: self-hosted
+    # strategy:
+    #   matrix:
+    #     environment: [dev, qa, uat, e2e, prod]
+    #     include:
+    #       - environment: dev
+            # runner: self-hosted
     #       - environment: qa
     #         runner: self-hosted
     #       - environment: uat
