@@ -46,8 +46,5 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-
-      - name: Run NPM script
-        run: npm run build
         env:
           NODE_ENV: ${{ matrix.environment }}
