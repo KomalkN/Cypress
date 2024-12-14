@@ -1,7 +1,7 @@
 name: Reusable Runner Workflow
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       RUNNER:
         description: 'Select the runner'
