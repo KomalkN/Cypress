@@ -20,33 +20,29 @@ on:
           - prod
 
 jobs:
-  npm-run:
-    name: NPM Run on ${{ inputs.environment }}
-    runs-on: ${{ matrix.runner }}
-
+  restart-app:
+    name: Deployment restart for ${{ matrix.env }}
+    runs-on: 
+      - self-hosted
+      - cnative
+      - common-runners
+      - ${{ matrix.dynamic-runner }}
     strategy:
       matrix:
-        environment: [dev, qa, uat, e2e, prod]
         include:
-          - environment: dev
-            runner: self-hosted
-          - environment: qa
-            runner: self-hosted
-          - environment: uat
-            runner: self-hosted
-          - environment: e2e
-            runner: self-hosted
-          - environment: prod
-            runner: self-hosted
-
+          - env: qa
+            dynamic-runner: dev-qa
+          - env: dev
+            dynamic-runner: dev-qa
+          - env: uat
+            dynamic-runner: uat
+          - env: e2e
+            dynamic-runner: e2e
+          - env: prod
+            dynamic-runner: prod
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Install dependencies
         run: npm install
-
-      - name: Run NPM script
-        run: npm run build
-        env:
-          NODE_ENV: ${{ matrix.environment }}
