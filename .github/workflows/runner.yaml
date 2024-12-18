@@ -3,7 +3,7 @@ name: NPM Run Workflow
 on:
   push:
     branches:
-      - feature/runner  # Trigger the workflow on push to this branch
+      - feature/runner-2  # Trigger the workflow on push to this branch
 
   workflow_dispatch:
     inputs:
