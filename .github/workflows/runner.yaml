@@ -10,7 +10,7 @@ on:
       environment:
         description: 'Select the environment'
         required: true
-        default: dev
+        default: e2e
         type: choice
         options:
           - dev
